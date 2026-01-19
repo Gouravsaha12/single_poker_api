@@ -1,17 +1,17 @@
-const express = require('express');
-const morgan = require('morgan'); 
-const mongoose = require('mongoose');
-const app = express(); 
+const express = require("express")
+const connect = require("./utils/db")
+require("dotenv").config()
 
+const app = express();
 
-app.use(morgan('dev'));
+const PORT = 3000;
+const URL = process.env.MONGODB_URL
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+connect(URL);
 
-
-app.listen(3000, () => {
-  console.log('App listening on port 3000');
-});
+app.listen(PORT, ()=>{
+    console.log(`listening on http://localhost:${PORT}`);
+})
