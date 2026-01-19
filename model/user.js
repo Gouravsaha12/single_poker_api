@@ -10,15 +10,19 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    password: {
+    hashed_password: {
         type: String,
         required: true,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
+    money: {
+        type: Number,
+        default: 10000,
     },
-});
+    histories: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'History',
+    }],
+}, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
