@@ -1,9 +1,9 @@
 const User = require('../model/user');
 
-const getUserById = async (userId) => {
-    return await User.findById(userId);
+const getUserByEmail = async (email) => {
+    return await User.findOne({ email });
 }
 
 module.exports = {
-    getUserById,
+    getUserByEmail,
 };

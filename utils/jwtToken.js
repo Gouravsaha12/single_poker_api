@@ -1,13 +1,12 @@
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 
-const createToken = (name, email, role, id) => {
+const createToken = (name, email, id) => {
     return jwt.sign(
         {   
             id: id,
             username:name,
-            email:email,
-            role:role
+            email:email
         },
         process.env.SECRET_KEY,
         {

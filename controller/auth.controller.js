@@ -1,11 +1,11 @@
 const {registerUser} = require('../services/auth.service');
-const {getUserById} = require('../services/user.service');
+const {getUserByEmail} = require('../services/user.service');
 const {hashPassword, comparePassword} = require('../utils/password');
 const {createToken, verifyToken} = require('../utils/jwtToken');
 
 const register = async (req, res) => {
     try {
-        const user = await getUserById(req.body.id);
+        const user = await getUserByEmail(req.body.email);
         if (user) {
             return res.status(400).json({ message: 'User already exists' });
         }
@@ -25,10 +25,15 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await getUserById(email);
+        const user = await getUserByEmail(email);
 
-        if (!user || comparePassword(password, user.password)) {
-            return res.status(401).json({ message: 'Invalid credentials' });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+
+        const isPasswordValid = await comparePassword(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(400).json({ message: 'Invalid email or password' });
         }
 
         const token = createToken(user.username, user.email, user._id);
