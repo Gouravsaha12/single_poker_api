@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
     },
     money: {
         type: Number,
+        default: 10000,
+    },
+    numOfGames: {
+        type: Number,
         default: 0,
     },
     history: [{
