@@ -9,7 +9,7 @@ const historySchema = new Schema({
     ref: "User",
     required: true,
   },
-  currAmnt: {
+  matchNo: {
     type: Number,
     required: true,
   },
@@ -17,7 +17,7 @@ const historySchema = new Schema({
     type: Boolean,
     required: true,
   },
-  matchNo: {
+  amountChanged: {
     type: Number,
     required: true,
   },
