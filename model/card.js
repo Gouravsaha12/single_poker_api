@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const cardSchema = mongoose.Schema({
+const cardSchema = new mongoose.Schema({
     sign : {
         type : Number,
         enum : [1,2,3,4]
