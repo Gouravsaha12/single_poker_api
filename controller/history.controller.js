@@ -1,11 +1,14 @@
 const HistoryService = require("../services/history.services");
 const HistoryModel = require("../model/history");
+const {getCurrentMatchCount} = require("../services/user.service");
 
 const createHistory = async (req, res) => {
   try {
-    console.log("DATA RECEIVED FROM POSTMAN:", req.body);
-    const { userId, matchNo, isWin, currentAmount } = req.body;
-
+    // console.log("DATA RECEIVED FROM POSTMAN:", req.body);
+    const { isWin, currentAmount } = req.body;
+    // console.log("USER ID FROM AUTH MIDDLEWARE:", req.user);
+    const userId = req.user.id;
+    const matchNo = await getCurrentMatchCount(userId) + 1;
 
     if (!userId || !matchNo) throw new Error("Missing fields");
 

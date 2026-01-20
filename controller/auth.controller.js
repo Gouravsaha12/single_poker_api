@@ -36,7 +36,7 @@ const login = async (req, res) => {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
 
-        const token = createToken(user.username, user.email, user._id);
+        const token = createToken(user.username, user.email, user._id, user.money, user.numOfGames);
         res.cookie("token", token, {
             maxAge : 3*24*60*60*1000,
             httpOnly : true

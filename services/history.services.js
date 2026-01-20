@@ -14,7 +14,8 @@ const recordMatch = async ({ userId, matchNo, isWin, currentAmount }) => {
     });
 
     await UserModel.findByIdAndUpdate(userId, {
-        $set: { money: currentAmount }, // Example: Add 100 if win, subtract 100 if lose
+        $inc: { numOfGames: 1 },
+        $set: { money: currentAmount },
         $push: { history: newHistoryEntry._id } // Add this specific match ID to their list
     });
 
