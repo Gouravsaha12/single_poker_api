@@ -1,20 +1,20 @@
 
-const HistoryModel = require('../models/history.model');
-const UserModel = require('../models/user.model');
+const HistoryModel = require('../model/history');
+const UserModel = require('../model/user');
 
 
-const recordMatch = async ({ userId, matchNo, win, currentAmount }) => {
+const recordMatch = async ({ userId, matchNo, isWin, currentAmount }) => {
     
     // Step A: Create the specific History entry
     const newHistoryEntry = await HistoryModel.create({
         userId,
         matchNo,
-        win,
+        isWin,
         currentAmount
     });
 
     await UserModel.findByIdAndUpdate(userId, {
-        $inc: { money: currentAmount }, // Example: Add 100 if win, subtract 100 if lose
+        $set: { money: currentAmount }, // Example: Add 100 if win, subtract 100 if lose
         $push: { history: newHistoryEntry._id } // Add this specific match ID to their list
     });
 

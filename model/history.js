@@ -17,7 +17,7 @@ const historySchema = new Schema({
     type: Boolean,
     required: true,
   },
-  amountChanged: {
+  currentAmount: {
     type: Number,
     required: true,
   },
